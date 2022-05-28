@@ -22,6 +22,7 @@ public class ServicosController {
     public ResponseEntity<Object> listar(@RequestParam(name = "nome", required = false) String nome,
                                          @RequestParam(name = "codigo", required = false) Integer codigo) {
         log.info(String.format("Parametros obtidos nome : { %s } , codigo : { %d }", nome, codigo));
+        //TODO Pendente -> implementar consultas na services.
         return ResponseEntity.ok(servicosImpl.listarServicos());
     }
 

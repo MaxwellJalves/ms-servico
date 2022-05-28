@@ -1,6 +1,5 @@
 package servidor.microservice.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import servidor.microservice.model.Servicos;
@@ -14,28 +13,26 @@ import java.util.List;
 @AllArgsConstructor
 public class ServicosImpl {
 
-    ObjectMapper objectMapper = new ObjectMapper();
     private ServicosRepository servicosRepository;
 
 
     public List<Servicos> listarServicos() {
-        var response =  servicosRepository.findAll();
-        return response;
+        return servicosRepository.findAll();
+
     }
 
     public ServicosResponseDTO cadastrarServicos(ServicosRequestDTO servicosRequestDTO) {
+        try {
+            var response = servicosRepository.save(Servicos.builder()
+                    .descricao(servicosRequestDTO.getDescricao())
+                    .nome(servicosRequestDTO.getNome())
+                    .build());
 
-
-        var response = servicosRepository.save(Servicos.builder()
-                .descricao(servicosRequestDTO.getDescricao())
-                .nome(servicosRequestDTO.getNome())
-                .build());
-
-        return ServicosResponseDTO.builder()
-                .codigo(response.getCodigo())
-                .descricao(response.getDescricao())
-                .nome(response.getNome())
-                .build();
+            return ServicosResponseDTO.convertToServicosResponseDTO(response);
+        } catch (Exception e) {
+            //TODO pendente : Implementar Excepions especificar com retorno do status code correspondente ao erro
+            throw new IllegalArgumentException("Ops! O resgistro não pode ser salvo nesse momento , reveja os dados informados e tente novamente.");
+        }
 
     }
 
