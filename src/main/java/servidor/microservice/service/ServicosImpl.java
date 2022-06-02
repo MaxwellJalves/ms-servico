@@ -30,7 +30,7 @@ public class ServicosImpl {
 
             return ServicosResponseDTO.convertToServicosResponseDTO(response);
         } catch (Exception e) {
-            //TODO pendente : Implementar Excepions especificar com retorno do status code correspondente ao erro
+            //TODO pendente : Implementar Excepions especifica com retorno do status code correspondente ao erro
             throw new IllegalArgumentException("Ops! O resgistro não pode ser salvo nesse momento , reveja os dados informados e tente novamente.");
         }
 

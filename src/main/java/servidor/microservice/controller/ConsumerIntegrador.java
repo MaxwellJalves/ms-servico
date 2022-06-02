@@ -12,6 +12,7 @@ import servidor.microservice.App;
 import servidor.microservice.model.Dados;
 import servidor.microservice.model.enums.StatusIntegrador;
 import servidor.microservice.service.ConsumerIntegradorService;
+import servidor.microservice.utils.Validation;
 
 import java.util.List;
 
@@ -34,10 +35,9 @@ public class ConsumerIntegrador {
             var request = Dados.builder()
                     .pedido(pedido)
                     .nome(nome)
-
                     .build();
 
-            if (isNotNull(statusIntegrador)) {
+            if (Validation.isNotNull(statusIntegrador)) {
                 request.setStatusIntegrador(StatusIntegrador.valueOf(statusIntegrador.toUpperCase()));
             }
             //TODO Pendente -> implementar consultas na services.
@@ -48,7 +48,5 @@ public class ConsumerIntegrador {
         }
     }
 
-    private boolean isNotNull(String statusIntegrador) {
-        return statusIntegrador != null ? true : false;
-    }
+
 }

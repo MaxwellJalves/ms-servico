@@ -19,6 +19,7 @@ public class Integrador {
     @Autowired
     private DadosRepository dadosRepository;
 
+    //TODO POC será utilizado o insert dos dados a cada chamada
     @PostMapping
     public List<Dados> objectList(){
       var dados =   new ArrayList<Dados>();
